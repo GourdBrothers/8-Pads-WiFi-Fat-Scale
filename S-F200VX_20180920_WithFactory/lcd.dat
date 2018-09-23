@@ -1,0 +1,10 @@
+4 4 4 0 0 0 1 8 7 
+* * * * * * * * BAT WIFI SJ KG * * * * 
+ST1_4 ST1_5 * * * * ST1_1 
+ST2_5 * ST4_5 * * * ST2_1 
+LT0 ST3_4 RT2 ST4_2 ST3_3 * * 
+ST1_0 ST2_7 ST4_0 RT0 ST4_6 * ST3_1 
+ST3_0 ST1_3 RT1 ST4_3 ST3_6 * ST4_1 
+ST2_6 * ST2_2 * * LT0 RT3 
+ST2_4 ST1_6 ST1_2 ST4_4 ST2_3 * * 
+ST3_2 * ST3_5 * * ST2_0 ST3_7 

@@ -1,0 +1,27 @@
+# Generalplus IDE Solution File, Format Version 1.0.0
+# Warning: do not edit or delete this solution file!
+
+# ////////////////////////////////////////////////////
+# Begin Solution
+<Solution>
+	NAME : S-Fxxx
+	GUID : {3551005C-915F-45C7-9DD2-4AD05145DD86}
+	STARTUP : {EA35AE21-9F1C-4048-9003-C580EE4153BD}
+	ACTIVECONFIGURATION : Release
+</Solution>
+# End Solution
+
+# ////////////////////////////////////////////////////
+# Begin Project
+<Projects>
+	COUNT : 1
+	<Project1>
+		NAME : S-Fxxx
+		GUID : {EA35AE21-9F1C-4048-9003-C580EE4153BD}
+		PATH : .\S-Fxxx.csuprj
+		Dependencies : 
+	</Project1>
+</Projects>
+
+# End Project
+# ////////////////////////////////////////////////////

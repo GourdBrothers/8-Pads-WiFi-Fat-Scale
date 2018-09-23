@@ -1,0 +1,48 @@
+--- s-fxxx.asm
+--- csu18mb86.inc
+--- csu18mxx_macro.inc
+--- ram_define.inc
+--- constdefine.inc
+--- led_define.inc
+--- csm37f58_define.inc
+--- poweron.asm
+--- scale_main.asm
+--- scale_keyscan.asm
+--- scale_init.asm
+--- scale_loadparam.asm
+--- scale_weihgt.asm
+--- scale_weight_cal.asm
+--- scale_cal.asm
+--- scale_cal_trg_flow.asm
+--- scale_sleep.asm
+--- scale_autoon.asm
+--- scale_display.asm
+--- scale_disp_cal.asm
+--- main_getres.asm
+--- getres_disp.asm
+--- scale_adc_pro.asm
+--- protocol_rx_handle.asm
+--- protocol_tx_handle.asm
+--- isr_handle.asm
+--- isr_uart_rx.asm
+--- isr_timer0.asm
+--- isr_led.asm
+--- math.asm
+--- funlibs.asm
+--- led_disp_lib.asm
+--- scale_getcount.asm
+--- scale_disp_weight.asm
+--- rtc_fun.asm
+--- bie_18mxx_libs.asm
+--- timer_funs.asm
+--- bat_funs.asm
+--- uart_lib.asm
+--- protocol_lib_v10.asm
+--- wifi_smartcfg.asm
+生成Hex文件.
+
+目标器件 :CSU18MB86
+CodeOption  : CodeOption0:0x0001;
+Checksum : 0801
+E:\工作项目暂存区\电子秤\电子秤项目\X_新域\S-F200_WIFI_FAT_20180116\A_版本\6035Wifi八电极_20180919\S-F200VX_20180919\//S-Fxxx.asm
+共用程序空间 ：3252×16 bits ( 39.69% )
