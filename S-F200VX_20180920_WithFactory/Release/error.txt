@@ -21,6 +21,7 @@
 --- main_getres.asm
 --- getres_disp.asm
 --- scale_adc_pro.asm
+--- factory_main.asm
 --- protocol_rx_handle.asm
 --- protocol_tx_handle.asm
 --- isr_handle.asm
@@ -43,6 +44,6 @@
 
 目标器件 :CSU18MB86
 CodeOption  : CodeOption0:0x0001;
-Checksum : C302
-E:\工作项目暂存区\电子秤\电子秤项目\X_新域\S-F200_WIFI_FAT_20180116\A_版本\6035Wifi八电极_20180919\S-F200VX_20180920_WithFactory\//S-Fxxx.asm
-共用程序空间 ：3259×16 bits ( 39.78% )
+Checksum : E2C0
+F:\Share_CSM\S-F200\8-Pads-WiFi-Fat-Scale\S-F200VX_20180920_WithFactory\//S-Fxxx.asm
+共用程序空间 ：3409×16 bits ( 41.61% )

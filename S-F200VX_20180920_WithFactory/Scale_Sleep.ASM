@@ -13,15 +13,16 @@ Scale_Sleep_Entry:
 	CLRF    T_Auto_Off
 
 Scale_Sleep_CfgIo:
-	BCF     WIFI_PWR_PORT,WIFI_PWR_PIN
-
-	BSF     PT1EN,UART_RXD_PIN
-	BCF     PT1PU,UART_RXD_PIN
-	BCF     PT1  ,UART_RXD_PIN
-
-	BSF     PT1EN,UART_TXD_PIN
-	BCF     PT1PU,UART_TXD_PIN
-	BCF     PT1  ,UART_TXD_PIN
+;	BCF     WIFI_PWR_PORT,WIFI_PWR_PIN
+;
+;	BSF     PT1EN,UART_RXD_PIN
+;	BCF     PT1PU,UART_RXD_PIN
+;	BCF     PT1  ,UART_RXD_PIN
+;
+;	BSF     PT1EN,UART_TXD_PIN
+;	BCF     PT1PU,UART_TXD_PIN
+;	BCF     PT1  ,UART_TXD_PIN
+	CALL    F_WiFi_PowerOff_UartIoOut0
 
     BCF     Wakeup_Flags,B_WakenOn_INT0
     BCF     Wakeup_Flags,B_WakenOn_RTC

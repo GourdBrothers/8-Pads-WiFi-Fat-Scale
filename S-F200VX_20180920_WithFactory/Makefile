@@ -11,9 +11,9 @@ ECHO					= @echo //-------------------------------------------------------------
 ###################################################
 #编译选项定义处
 ###################################################
-OUTPUT_DIR            = E:\工作项目暂存区\电子秤\电子秤项目\X_新域\S-F200_WIFI_FAT_20180116\A_版本\6035Wifi八电极_20180919\S-F200VX_20180920_WithFactory\.\Release
+OUTPUT_DIR            = F:\Share_CSM\S-F200\8-Pads-WiFi-Fat-Scale\S-F200VX_20180920_WithFactory\.\Release
 SOURCE_MAIN_FILE_NAME = S-Fxxx
-SOURCE_MAIN_FILE_PATH = E:\工作项目暂存区\电子秤\电子秤项目\X_新域\S-F200_WIFI_FAT_20180116\A_版本\6035Wifi八电极_20180919\S-F200VX_20180920_WithFactory\/
+SOURCE_MAIN_FILE_PATH = F:\Share_CSM\S-F200\8-Pads-WiFi-Fat-Scale\S-F200VX_20180920_WithFactory\/
 GENERATE_DAT_FILE			= 1
 BODY_NAME							= CSU18MB86
 INST_TYPE							= 1

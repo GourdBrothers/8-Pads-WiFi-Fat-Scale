@@ -162,6 +162,7 @@ F_Clr_Timer05S:
 	BCF        SysFlag2,B_SysFlag2_TF_05B
 RETURN
 
+
 F_CAL_NEXT_FLOW:
 	CLRF       TimerCal
 	BCF        STATUS,C
@@ -267,3 +268,35 @@ F_W_CAL_INIT:
     BSF     W_CAL_Flag,B_W_CAL_Flag_EN
     BSF     W_CAL_Flag,B_W_CAL_Flag_1
 RETURN
+
+
+F_WiFi_PowerOff_UartIoOut0:
+   BCF      WIFI_PWR_PORT,WIFI_PWR_PIN  ; POWER OFF THE WIFI
+   CLRF     WifiPwrCnt
+   
+   BCF      INTE2,URRIE
+   BCF      INTE2,URTIE
+   CLRF     SCON1
+   
+   BSF      PT1EN,UART_RXD_PIN
+   BCF      PT1PU,UART_RXD_PIN
+   BCF      PT1  ,UART_RXD_PIN
+
+   BSF      PT1EN,UART_TXD_PIN
+   BCF      PT1PU,UART_TXD_PIN
+   BCF      PT1  ,UART_TXD_PIN
+RETURN	
+
+F_WiFi_PowerOn_UartIoFloat:
+   BCF      PT1EN,UART_RXD_PIN
+   BCF      PT1PU,UART_RXD_PIN
+   BCF      PT1  ,UART_RXD_PIN
+
+   BCF      PT1EN,UART_TXD_PIN
+   BCF      PT1PU,UART_TXD_PIN
+   BCF      PT1  ,UART_TXD_PIN
+   
+   BSF      WIFI_PWR_PORT,WIFI_PWR_PIN  ; POWER ON THE WIFI
+   CLRF     WifiPwrCnt
+RETURN	
+	

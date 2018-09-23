@@ -152,6 +152,36 @@ LoadDspData_TO_LED_REG:
     MOVFF       LED7,R_LED_7
 RETURN
 
+
+Display_NumADC:
+	MOVLW		00H
+    XORWF		TempRam2, W
+    BTFSS		STATUS, Z
+    GOTO		Display_NumADC_END
+    MOVFL		TempRam2,Disp_No
+
+    MOVLW		00H
+    XORWF		TempRam3, W
+    BTFSS		STATUS, Z
+    GOTO		Display_NumADC_END
+    MOVFL		TempRam3,Disp_No
+	
+    MOVLW		00H
+    XORWF		TempRam4, W
+    BTFSS		STATUS, Z
+    GOTO		Display_NumADC_END
+    MOVFL		TempRam4,Disp_No
+
+    MOVLW		00H
+    XORWF		TempRam5, W
+    BTFSS		STATUS, Z
+    GOTO		Display_NumADC_END
+    MOVFL		TempRam5,Disp_No
+    
+Display_NumADC_END:    
+	GOTO        Display_Num1
+
+	
 Display_Num:
 
     MOVLW		00H

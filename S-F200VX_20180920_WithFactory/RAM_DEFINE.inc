@@ -252,8 +252,9 @@
     FactoryFlowValue            EQU  CalFlowValue
       B_FactoryFlowValue_INIT   EQU  0
       B_FactoryFlowValue_WAIT   EQU  1
-      B_FactoryFlowValue_CMDCC  EQU  2
-      B_FactoryFlowValue_PASS   EQU  3
+      B_FactoryFlowValue_ADC    EQU  2
+      B_FactoryFlowValue_CMDCC  EQU  3
+      B_FactoryFlowValue_PASS   EQU  4
     
 ;===================================================
 ;==== RAM PAGE0

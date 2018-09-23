@@ -21,6 +21,7 @@ SCALE_DISP_CAL.ASM
 MAIN_GETRES.ASM                      
 GETRES_DISP.ASM                      
 SCALE_ADC_PRO.ASM                    
+FACTORY_MAIN.ASM                     
 PROTOCOL_RX_HANDLE.ASM               
 PROTOCOL_TX_HANDLE.ASM               
 ISR_HANDLE.ASM                       

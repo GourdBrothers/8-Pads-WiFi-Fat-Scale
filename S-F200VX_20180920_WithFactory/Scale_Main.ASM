@@ -22,7 +22,7 @@ Main_Scale_ChkBat_END:
 Main_Scale_WIFI_PWR:
 	BTFSS    ScaleFlowValue,B_ScaleFlow_Weight
 	GOTO     Main_Scale_WIFI_PWR_END
-	BTFSC    WIFI_PWR_PORT,WIFI_PWR_PIN    ;POWER IS ON
+	BTFSC    WIFI_PWR_PORT,WIFI_PWR_PIN       ;POWER IS ON
 	GOTO     Main_Scale_WIFI_PWR_END
 	BTFSS    SysFlag1,B_SysFlag1_DataOk
 	GOTO     Main_Scale_WIFI_PWR_END
@@ -31,12 +31,11 @@ Main_Scale_WIFI_PWR:
 	SUBWF    WifiPwrCnt,W
 	BTFSS    STATUS,C
 	GOTO     Main_Scale_WIFI_PWR_END
-	CLRF     WifiPwrCnt
-	BSF      WIFI_PWR_PORT,WIFI_PWR_PIN
-	MOVLW    10
+    CALL     F_WiFi_PowerOn_UartIoFloat
+	MOVLW    30                              ; give the WiFi enough time to reset
 	CALL     cs_delay_1ms
     CALL     F_UART_Enable
-    BTFSC    FlyLink_Flag,B_FlyLink_Flag_En
+    BTFSC    FlyLink_Flag,B_FlyLink_Flag_En  ; if the wifi is no configed SSID and password,run smartconfig
     CALL     F_WIFI_SmartCfg_TRG
 Main_Scale_WIFI_PWR_END:
 

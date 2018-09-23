@@ -59,12 +59,11 @@ Main_FLOW:
 Main_FLOW_PowerOn:
 	INCLUDE   PowerOn.ASM
 	CLRF      MainFlowValue
-	BSF       MainFlowValue,B_MainFlow_Scale
-  ;============== test
-;	CLRF      MainFlowValue
-;	BSF       MainFlowValue,B_MainFlow_TEST
-;	CALL      F_UART_Enable
-  ;============== test
+    BSF       MainFlowValue,B_MainFlow_Factory
+    CLRF      FactoryFlowValue
+	;CLRF      MainFlowValue
+	;BSF       MainFlowValue,B_MainFlow_Scale
+Main_FLOW_PowerOn_End:
     GOTO      Main_FLOW_END
 
 Main_FLOW_Scale:
@@ -86,6 +85,7 @@ MAIN_ADC_PRO_END:
 	GOTO      MAIN_Flow_END
 	
 Main_FLOW_Factory:
+	INCLUDE   Factory_Main.ASM
 Main_FLOW_Factory_END:
 	GOTO      MAIN_Flow_END
     
