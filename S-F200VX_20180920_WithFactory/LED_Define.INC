@@ -105,9 +105,9 @@ DEFINE  FLAG1_BLE  "LED_56"  ; 3002отй╬©Р
 DEFINE  FLAG1_SJ   "LED_16"  ; 3002отй╬©Р
 DEFINE  FLAG1_KG   "LED_8"   ; 3002отй╬©Р
 
-DEFINE  FLAG1_P1   "LED_24"    ; num3_p
+DEFINE  FLAG1_P1   "LED_49"    ; num3_p
 DEFINE  FLAG1_P2   "LED_15"    ; num2_p
-DEFINE  FLAG1_P3   "LED_44"    ; 
+DEFINE  FLAG1_P3   "LED_15"    ; No use
 
 DEFINE  FLAG1_ColH "LED_52"    ;
 DEFINE  FLAG1_ColL "LED_32"    ;

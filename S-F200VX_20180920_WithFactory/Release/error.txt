@@ -22,6 +22,7 @@
 --- getres_disp.asm
 --- scale_adc_pro.asm
 --- factory_main.asm
+--- factory_display.asm
 --- protocol_rx_handle.asm
 --- protocol_tx_handle.asm
 --- isr_handle.asm
@@ -43,7 +44,7 @@
 生成Hex文件.
 
 目标器件 :CSU18MB86
-CodeOption  : CodeOption0:0x0001;
-Checksum : E2C0
+CodeOption  : CodeOption0:0x0003;
+Checksum : 9C38
 F:\Share_CSM\S-F200\8-Pads-WiFi-Fat-Scale\S-F200VX_20180920_WithFactory\//S-Fxxx.asm
-共用程序空间 ：3409×16 bits ( 41.61% )
+共用程序空间 ：3463×16 bits ( 42.27% )

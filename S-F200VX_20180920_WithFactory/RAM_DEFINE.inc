@@ -255,6 +255,8 @@
       B_FactoryFlowValue_ADC    EQU  2
       B_FactoryFlowValue_CMDCC  EQU  3
       B_FactoryFlowValue_PASS   EQU  4
+      B_FactoryFlowValue_ERR    EQU  5
+      
     
 ;===================================================
 ;==== RAM PAGE0
@@ -335,7 +337,7 @@ WifiStatus                    EQU  BAT_VoltageL + 1
   B_WifiStatus_Smartcfg       EQU  3
   B_WifiStatus_NetCfg         EQU  4
   B_WifiStatus_DataOK         EQU  5
-  B_WifiStatus_TEST           EQU  6
+  B_WifiStatus_PcbaTEST       EQU  6
   B_WifiStatus_OTA            EQU  7
 
 WifiSysStatus                 EQU  WifiStatus + 1
@@ -440,6 +442,13 @@ UART_ACK       EQU   UART_TX32 + 1
       B_W_CAL_Flag_TRG   EQU    5
       B_W_CAL_Flag_LOCK  EQU    6
 
+    Fac_RtcChk_Cnt        EQU    W_CAL_Flag     + 1   ; FOR factory
+    Fac_RcRef_Cnt         EQU    Fac_RtcChk_Cnt + 1
+    Fac_ErrCode           EQU    Fac_RcRef_Cnt  + 1
+      B_Fac_ErrCode_RTC   EQU    0
+      B_Fac_ErrCode_UART  EQU    1
+      B_Fac_ErrCode_RES   EQU    2
+      B_Fac_ErrCode_WIFI  EQU    3
 
 ;-----------------------------------------------------------------------------
 

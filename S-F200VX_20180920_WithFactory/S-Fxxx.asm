@@ -61,8 +61,8 @@ Main_FLOW_PowerOn:
 	CLRF      MainFlowValue
     BSF       MainFlowValue,B_MainFlow_Factory
     CLRF      FactoryFlowValue
-	;CLRF      MainFlowValue
-	;BSF       MainFlowValue,B_MainFlow_Scale
+;	CLRF      MainFlowValue
+;	BSF       MainFlowValue,B_MainFlow_Scale
 Main_FLOW_PowerOn_End:
     GOTO      Main_FLOW_END
 

@@ -37,6 +37,9 @@ RETFIE
 
 ISR_RTC:
 	BCF         INTF2,RTCIF
+;---
+	INCF        Fac_RtcChk_Cnt,F
+;---
 	INCF        RTC_Base,F
 	MOVLW       02H
 	SUBWF       RTC_Base,W

@@ -66,6 +66,8 @@ F_Send_DataComm:
 	CLRF    UART_TX19
 ;--- 电阻值
 	MOVLW   0FFH          ; UART_TX20,UART_TX21 为0FFFFH时，由WIFI测脂
+	BTFSC   MainFlowValue,B_MainFlow_Factory
+	MOVLW   000H
 	MOVWF   UART_TX20
 	MOVWF   UART_TX21
 	MOVLW   000H

@@ -44,4 +44,5 @@ CSM37F58_Define.inc
 CSM37F58_lib.asm
 GetRes_Disp.asm
 Main_GetRes.asm
+Factory_Display.asm
 Factory_Main.asm

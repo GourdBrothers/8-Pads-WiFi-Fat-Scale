@@ -2,17 +2,15 @@
 <UserOptions>
 	<OpenState>
 		<OpenFiles>
-			Path=".\\Protocol_LIB_V10.asm"
-			Path=".\\Protocol_TX_Handle.asm"
-			Path=".\\Protocol_RX_Handle.asm"
 			Path=".\\S-Fxxx.asm"
 			Path=".\\RAM_DEFINE.inc"
-			Path=".\\Factory_Main.asm"
-			State="16,519,519"
+			Path=".\\Factory_Main.ASM"
+			State="6,417,417"
 		</OpenFiles>
 		<OpenFolders>
 			<{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 				Expanded="TRUE"
+				Name="Scale"
 				Name="Factory"
 			</{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 		</OpenFolders>
@@ -48,58 +46,25 @@
 	<WatchVariables>
 		<dockbar_watch1>
 			<Variable>
-				Name="INTE"
+				Name="FactoryFlowValue"
 			</Variable>
 			<Variable>
-				Name="INTE2"
+				Name="H_DATA"
 			</Variable>
 			<Variable>
-				Name="ADRamH"
+				Name="M_DATA"
 			</Variable>
 			<Variable>
-				Name="ADRamM"
+				Name="L_DATA"
 			</Variable>
 			<Variable>
-				Name="ADRamL"
+				Name="ADOH"
 			</Variable>
 			<Variable>
-				Name="AutoOnADH"
+				Name="ADOL"
 			</Variable>
 			<Variable>
-				Name="AutoOnADm"
-			</Variable>
-			<Variable>
-				Name="AutoOnADL"
-			</Variable>
-			<Variable>
-				Name="cOUNTH"
-			</Variable>
-			<Variable>
-				Name="COUNTL"
-			</Variable>
-			<Variable>
-				Name="T_Auto_Off"
-			</Variable>
-			<Variable>
-				Name="NETA"
-			</Variable>
-			<Variable>
-				Name="NETC"
-			</Variable>
-			<Variable>
-				Name="NETE"
-			</Variable>
-			<Variable>
-				Name="NETF"
-			</Variable>
-			<Variable>
-				Name="DownADH"
-			</Variable>
-			<Variable>
-				Name="DownADM"
-			</Variable>
-			<Variable>
-				Name="DownADL"
+				Name="ADOLL"
 			</Variable>
 		</dockbar_watch1>
 	</WatchVariables>
