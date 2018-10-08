@@ -351,7 +351,7 @@ WifiSysStatus                 EQU  WifiStatus + 1
 
 WifiPwrCnt                    EQU  WifiSysStatus + 1
 
-UartRxFlag         EQU   WifiPwrCnt        + 1   ; FOR UART RX
+UartRxFlag         EQU   WifiPwrCnt     + 1   ; FOR UART RX
   B_UartRxFlag_OK  EQU   0 
   B_UartRxFlag_L   EQU   1
   B_UartRxFlag_D   EQU   2
@@ -441,14 +441,21 @@ UART_ACK       EQU   UART_TX32 + 1
       B_W_CAL_Flag_PASS  EQU    4
       B_W_CAL_Flag_TRG   EQU    5
       B_W_CAL_Flag_LOCK  EQU    6
-
-    Fac_RtcChk_Cnt        EQU    W_CAL_Flag     + 1   ; FOR factory
+      
+      
+    Fac_TimeOff           EQU    W_CAL_Flag     + 1   ; FOR factory
+    Fac_RtcChk_Cnt        EQU    Fac_TimeOff    + 1
     Fac_RcRef_Cnt         EQU    Fac_RtcChk_Cnt + 1
     Fac_ErrCode           EQU    Fac_RcRef_Cnt  + 1
       B_Fac_ErrCode_RTC   EQU    0
       B_Fac_ErrCode_UART  EQU    1
       B_Fac_ErrCode_RES   EQU    2
       B_Fac_ErrCode_WIFI  EQU    3
+    Fac_RX_RecvFlag       EQU    Fac_ErrCode     + 1
+      B_Fac_RX_RecvFlag_CmdCC_OK  EQU   0
+      B_Fac_RX_RecvFlag_WiFi_OK   EQU   1
+      B_Fac_RX_RecvFlag_CS1258_OK EQU   2
+    Fac_ErrNum            EQU    Fac_RX_RecvFlag + 1
 
 ;-----------------------------------------------------------------------------
 

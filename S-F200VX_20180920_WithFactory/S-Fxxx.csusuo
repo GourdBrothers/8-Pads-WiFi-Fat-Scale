@@ -2,16 +2,22 @@
 <UserOptions>
 	<OpenState>
 		<OpenFiles>
-			Path=".\\S-Fxxx.asm"
+			Path=".\\Factory_Main.asm"
+			Path=".\\UART_LIB.asm"
+			Path=".\\Protocol_LIB_V10.asm"
+			Path=".\\Protocol_RX_Handle.asm"
 			Path=".\\RAM_DEFINE.inc"
-			Path=".\\Factory_Main.ASM"
-			State="6,417,417"
+			Path=".\\Protocol_TX_Handle.asm"
+			Path=".\\Factory_Display.asm"
+			Path=".\\Math.ASM"
+			Path=".\\LED_DISP_LIB.ASM"
+			Path=".\\S-Fxxx.asm"
+			State="11,384,384"
 		</OpenFiles>
 		<OpenFolders>
 			<{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 				Expanded="TRUE"
-				Name="Scale"
-				Name="Factory"
+				Name="CSM37F58"
 			</{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 		</OpenFolders>
 	</OpenState>
@@ -42,6 +48,10 @@
 		ActiveRegGroup="SFR"
 	</UI_dockbar_registers>
 	<Breakpoints>
+		<Breakpoint>
+			ClassID="{4993C0DF-0FCE-4D4A-9C53-8119E029EA7B}"
+			Data="A2FC38263136485742503130303B303B313B313337333B303B313B303B303B303B2E5C466163746F72795F4D61696E2E61736D3B323700"
+		</Breakpoint>
 	</Breakpoints>
 	<WatchVariables>
 		<dockbar_watch1>
@@ -65,6 +75,21 @@
 			</Variable>
 			<Variable>
 				Name="ADOLL"
+			</Variable>
+			<Variable>
+				Name="Fac_RX_RecvFlag"
+			</Variable>
+			<Variable>
+				Name="Fac_RtcChk_Cnt"
+			</Variable>
+			<Variable>
+				Name="Fac_RcRef_Cnt"
+			</Variable>
+			<Variable>
+				Name="Fac_ErrNum"
+			</Variable>
+			<Variable>
+				Name="Display4"
 			</Variable>
 		</dockbar_watch1>
 	</WatchVariables>

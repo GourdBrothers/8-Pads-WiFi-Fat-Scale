@@ -114,13 +114,26 @@ Protocol_RX_C6:
     GOTO     Protocol_RX_C6_CMDCC
 	GOTO     Protocol_RX_C6_END
 	
-Protocol_RX_C6_CMD10:	
+Protocol_RX_C6_CMD10:
 	MOVFF    WifiStatus   ,UART_RX3
 	MOVFF    WifiSysStatus,UART_RX4
-	BTFSS    WifiStatus,B_WifiStatus_DataOK
-	NOP
-	BTFSC    WifiStatus,B_WifiStatus_Test125X
-	NOP
+;--
+	BTFSS    WifiStatus,B_WifiStatus_PcbaTEST
+	GOTO     Protocol_RX_C6_CMD10_Link
+;-- cs1258 产测标志检测
+Protocol_RX_C6_CMD10_CS1258_TEST:
+	BTFSS    WifiSysStatus,B_WifiSysStatus_125xTesting
+	GOTO     Protocol_RX_C6_CMD10_WIFI_TEST
+	BTFSC    WifiSysStatus,B_WifiSysStatus_125xTestErr
+	BSF      Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CS1258_OK  ; CS1258 产测OK
+;-- WiFi 产测标志检测
+Protocol_RX_C6_CMD10_WIFI_TEST:
+	BTFSS    WifiSysStatus,B_WifiSysStatus_WifiTesting
+	GOTO     Protocol_RX_C6_CMD10_Link
+	BTFSC    WifiSysStatus,B_WifiSysStatus_WifiTestErr
+	BSF      Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_WiFi_OK    ; WiFi 产测OK
+;--- wifi 连接状态检测
+Protocol_RX_C6_CMD10_Link:
 	BTFSS    WifiStatus,B_WifiStatus_LINK
 	GOTO     Protocol_RX_C6_CMD10_END
 	CALL     F_WIFI_SmartCfg_Disable
@@ -130,10 +143,14 @@ Protocol_RX_C6_CMD10_END:
 Protocol_RX_C6_CMD12:
 	BSF      Wifi_SmartCfg,B_Wifi_SmartCfg_Ack
 	CLRF     T_Auto_Off
-Protocol_RX_C6_CMD12_END:	
+Protocol_RX_C6_CMD12_END:
     GOTO     Protocol_RX_C6_END
     
 Protocol_RX_C6_CMDCC:
+	MOVLW    01H
+	XORWF    UART_RX3,W
+	BTFSC    STATUS,Z
+	BSF      Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CmdCC_OK
 Protocol_RX_C6_CMDCC_END:
 	GOTO     Protocol_RX_C6_END
 	

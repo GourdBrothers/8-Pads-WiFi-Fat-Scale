@@ -1,0 +1,39 @@
+
+WIFI 8 电极产测通过LOG
+
+[14:46:25.903]收←◆Uart fifo empty
+Level:1:APP version:STD_CS-HWR702_V0.1.06A_0
+Level:1:CLOUD version:0x00000106
+mode : sta(2c:3a:e8:4a:57:e7)
+add if0
+[14:46:25.935]收←◆Level:1:wifiConnectInitial(87)-enter test mode
+[14:46:26.943]收←◆Level:1:MACSTART:2c3ae84a57e7:MACEND
+[14:46:27.039]收←◆Level:1:MACSTART:2c3ae84a57e7:MACEND
+[14:46:27.135]收←◆Level:1:MACSTART:2c3ae84a57e7:MACEND
+[14:46:27.231]收←◆Level:1:ALLMACEND
+[14:46:27.344]收←◆Level:1:TESTFLAGSTART:00:TESTFLAGEND
+[14:46:27.440]收←◆Level:1:TESTFLAGSTART:00:TESTFLAGEND
+
+[14:46:27.536]收←◆Level:1:TESTFLAGSTART:00:TESTFLAGEND
+
+[14:46:27.632]收←◆Level:1:ALLTESTFLAGEND
+
+[14:46:42.124]收←◆Level:1:userUartTask(890)-pcba enable test cs1258
+
+[14:46:42.250]收←◆scandone
+Level:1:scan_done(466)-Test AP OK;RSSI:-35
+Level:1:scan_done(506)-PCB test wifi finish:1,1
+
+[14:46:44.985]收←◆Level:1:CalReadCheckR34Res(1867)-get K34Value:5909;current KValue:1100
+
+[14:46:45.065]收←◆Level:1:tim
+[14:46:45.107]收←◆e:2952848	ShortADC:0x801e70;ADC0:0x831ce1;ADC1:0x8a1d1a;
+Level:1:Z12Adc:0x0;Z13Adc:0x0;Z14Adc:0x0;Z23Adc:0x0;Z24Adc:0x0;Z34Adc:0x84db90;Z43Adc:0x0;Z33Adc:0x0;Z44Adc:0x0
+Level:1:Z12Res:0;Z13Res:0;Z14Res:0;Z23Res:0;Z24Res:0;Z34Res:4749;Z43Res:0;Z33Res:0;Z44Res:0
+Level:1:BodyRes:0;Z1Res:0;Z2Res:0;Z3Res:0;Z4Res:0;Z5Res:0;
+
+[14:46:50.521]收←◆Level:1:time:5391842	ShortADC:0x801ef3;ADC0:0x831cfd;ADC1:0x8a1d57;
+Level:1:Z12Adc:0x860b97;Z13Adc:0x85b97a;Z14Adc:0x85b477;Z23Adc:0x85bc77;Z24Adc:0x85b7a1;Z34Adc:0x84dbfb;Z43Adc:0x84db84;Z33Adc:0x0;Z44Adc:0x0
+Level:1:Z12Res:6000;Z13Res:5675;Z14Res:5655;Z23Res:5687;Z24Res:5668;Z34Res:4799;Z43Res:4797;Z33Res:0;Z44Res:0
+Level:1:BodyRes:4798;Z1Res:2993;Z2Res:3006;Z3Res:2408;Z4Res:2389;Z5Res:226;
+Level:1:cs1258TestTask(2065)-PCB test cs1258 finish:1,1

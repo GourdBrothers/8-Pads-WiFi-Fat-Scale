@@ -1,6 +1,6 @@
 ;==============================================================================
 ;===== Factory_Main.asm
-;=====  CMD10: C5 1E 10 0A 2D 00 00 18 01 08 12 00 15 05 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FC
+;=====  CMD10: C5 1E 10 00 00 00 00 18 01 08 12 00 02 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CF
 ;=====  CMDCC: C5 01 CC 08
 ;===== 1.Factory_Main_Init：初始化显示，并全显
 ;===== 2.Factory_Main_WaitSeconds：全显示1S后开WIFI电源，半秒后初始化串口,ADC
@@ -104,7 +104,7 @@ Factory_Main_Init:
 ;--- NEXT FLOW 
    CLRF     FactoryFlowValue
    BSF      FactoryFlowValue,B_FactoryFlowValue_WAIT
-   CLRF     T_Auto_Off
+   CLRF     Fac_TimeOff
    CALL     F_Clr_Timer05S
 ;---
    CLRF     Fac_RtcChk_Cnt
@@ -117,66 +117,121 @@ Factory_Main_Init_END:
 Factory_Main_WaitSeconds:
 	BTFSS   SysFlag2,B_SysFlag2_TF_05B
 	GOTO    Factory_Main_WaitSeconds_END
-	INCF    T_Auto_Off,F
+	INCF    Fac_TimeOff,F
 	MOVLW   01H
-	XORWF   T_Auto_Off,W
+	XORWF   Fac_TimeOff,W
 	BTFSC   STATUS,Z
 	CALL    F_UART_Enable         ; init uart
 	MOVLW   04H
-	SUBWF   T_Auto_Off,W
+	SUBWF   Fac_TimeOff,W
 	BTFSS   STATUS,C
 	GOTO    Factory_Main_WaitSeconds_END
 ;--- NEXT FLOW
 	CLRF    FactoryFlowValue
 	BSF     FactoryFlowValue,B_FactoryFlowValue_ADC
-	CLRF    T_Auto_Off
+	CLRF    Fac_TimeOff
     CALL    F_Clr_Timer05S
+;--- init uart rx buf
+    CALL    F_UART_InitRX
+    CLRF    Fac_RX_RecvFlag
 Factory_Main_WaitSeconds_END:
 	GOTO    Factory_Main_Flow_END
 
-;---- Display adc , 5 Seconds
+;---- Display adc , 3 Seconds
 Factory_Main_ADC:
 	BTFSS	SysFlag1,B_SysFlag1_AdcOk
 	GOTO    Factory_Main_ADC_Time
 	BCF		SysFlag1,B_SysFlag1_AdcOk
-	BSF     UART_TX_EVENT,B_UART_TX_EVENT_unlock
 Factory_Main_ADC_Time:	
 	BTFSS   SysFlag2,B_SysFlag2_TF_05B
 	GOTO    Factory_Main_ADC_END
-	INCF    T_Auto_Off,F
-	MOVLW   10
-	SUBWF   T_Auto_Off,W
+	INCF    Fac_TimeOff,F
+	MOVLW   6
+	SUBWF   Fac_TimeOff,W
 	BTFSS   STATUS,C
 	GOTO    Factory_Main_ADC_END
 ;--- NEXT FLOW
 	CLRF    FactoryFlowValue
 	BSF     FactoryFlowValue,B_FactoryFlowValue_CMDCC
     CALL    F_Clr_Timer05S
-    ;CLRF    T_Auto_Off
-Factory_Main_ADC_END:	
+    MOVLW   20
+    MOVWF   Fac_TimeOff
+Factory_Main_ADC_END:
 	GOTO    Factory_Main_Flow_END
 	
 ;---- SEND CMDCC to WIFI MOUDLE
 Factory_Main_SendCmdCC:
 	BTFSS   SysFlag2,B_SysFlag2_TF_05B
 	GOTO    Factory_Main_SendCmdCC_END
-	DECF    T_Auto_Off,F
-	MOVLW   00H
-	XORWF   T_Auto_Off,W
-	BTFSS   STATUS,Z
-	GOTO    Factory_Main_SendCmdCC_END
-;---
+;--- SEND CMDCC,TRG FACTORY TEST
+Factory_Main_SendCmdCC_0:
+	BTFSC   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CmdCC_OK
+	GOTO    Factory_Main_SendCmdCC_1
+	BSF     UART_TX_EVENT,B_UART_TX_EVENT_WifiTest
+	GOTO    Factory_Main_SendCmdCC_Timeout
+;--- SEND CMD10,GET STATE
+Factory_Main_SendCmdCC_1:
+	BSF     UART_TX_EVENT,B_UART_TX_EVENT_unlock
+	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_WiFi_OK
+	GOTO    Factory_Main_SendCmdCC_Timeout
+	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CS1258_OK
+	GOTO    Factory_Main_SendCmdCC_Timeout
+;--- WIFI 模块通过
+	BCF     UART_TX_EVENT,B_UART_TX_EVENT_unlock
 	CLRF    FactoryFlowValue
 	BSF     FactoryFlowValue,B_FactoryFlowValue_PASS
+	GOTO    Factory_Main_SendCmdCC_END
+;--- CHECK TIMEOUT
+Factory_Main_SendCmdCC_Timeout:
+	DECF    Fac_TimeOff,F
+	MOVLW   0FFH
+	XORWF   Fac_TimeOff,W
+	BTFSS   STATUS,Z
+	GOTO    Factory_Main_SendCmdCC_END
+;--- NEXT FLOW
+	CLRF    FactoryFlowValue
+	BSF     FactoryFlowValue,B_FactoryFlowValue_ERR
+;--- ERRCODE
+	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CmdCC_OK
+	BSF     Fac_ErrCode,B_Fac_ErrCode_UART
+	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CS1258_OK
+	BSF     Fac_ErrCode,B_Fac_ErrCode_RES
+	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_WiFi_OK
+	BSF     Fac_ErrCode,B_Fac_ErrCode_WIFI
+;---
+	CALL    F_Clr_Timer05S
+    CLRF    Fac_TimeOff
 Factory_Main_SendCmdCC_END:
 	GOTO    Factory_Main_Flow_END
 
-;---- RECEIVE WIFI CMD ACK , UARTLINES IS OK
+;---- WIFI AND CS1258 ARE OK
 Factory_Main_PASS:
 Factory_Main_PASS_END:
 	GOTO    Factory_Main_Flow_END
 	
+;---- WIFI AND CS1258 HAS SOMETHING WRONG
 Factory_Main_ERR:
+	CLRF     Fac_ErrNum
+	BTFSS    Fac_ErrCode,B_Fac_ErrCode_RTC
+	GOTO     Factory_Main_ERR_UART
+	MOVLW    01H
+	GOTO     Factory_Main_ERR_COMM
+Factory_Main_ERR_UART:
+	BTFSS    Fac_ErrCode,B_Fac_ErrCode_UART
+	GOTO     Factory_Main_ERR_RES
+	MOVLW    02H
+	GOTO     Factory_Main_ERR_COMM
+Factory_Main_ERR_RES:
+	BTFSS    Fac_ErrCode,B_Fac_ErrCode_RES
+	GOTO     Factory_Main_ERR_WIFI
+	MOVLW    03H
+	GOTO     Factory_Main_ERR_COMM
+Factory_Main_ERR_WIFI:
+	BTFSS    Fac_ErrCode,B_Fac_ErrCode_WIFI
+	GOTO     Factory_Main_ERR_END
+	MOVLW    04H
+Factory_Main_ERR_COMM:
+	MOVWF    Fac_ErrNum
 Factory_Main_ERR_END:
 	
 Factory_Main_Flow_END:

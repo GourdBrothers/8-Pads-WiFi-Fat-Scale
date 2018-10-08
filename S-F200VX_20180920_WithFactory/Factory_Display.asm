@@ -3,7 +3,7 @@
 ;==========================================================
 Factory_Disp_Entry:
 
-Factory_Main_Disp_CLR:	
+Factory_Main_Disp_CLR:
     CALL     ClrLEDBuffer
     
 Factory_Disp_FlowChk:
@@ -17,9 +17,11 @@ Factory_Disp_FlowChk:
 	GOTO     Factory_Main_Disp_CMDCC
 	BTFSC    FactoryFlowValue,B_FactoryFlowValue_PASS
 	GOTO     Factory_Main_Disp_PASS
+	BTFSC    FactoryFlowValue,B_FactoryFlowValue_ERR
+	GOTO     Factory_Main_Disp_ERR
 	
 Factory_Main_Disp_INIT:
-	; no nothing
+	; do nothing
 Factory_Main_Disp_INIT_END:
 	GOTO     Factory_Main_Disp_Load
 	
@@ -52,6 +54,16 @@ Factory_Main_Disp_PASS:
     MOVFL    Display3,LedchA
     MOVFL    Display4,Ledch5
 Factory_Main_Disp_PASS_END:
+	GOTO     Factory_Main_Disp_Load
+	
+Factory_Main_Disp_ERR:
+	MOVFL    Display1,LedchE
+    MOVFL    Display2,Ledchr
+    MOVFL    Display3,Ledchbar
+    MOVFW	 Fac_ErrNum
+    CALL	 Led_Num
+    IORWF	 Display4,F
+Factory_Main_Disp_ERR_END:
 	GOTO     Factory_Main_Disp_Load
 	
 Factory_Main_Disp_Load:
