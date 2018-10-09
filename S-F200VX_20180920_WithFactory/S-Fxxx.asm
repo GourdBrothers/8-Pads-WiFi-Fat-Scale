@@ -59,11 +59,25 @@ Main_FLOW:
 	
 Main_FLOW_PowerOn:
 	INCLUDE   PowerOn.ASM
+;---
+	;CALL      F_Factory_WR_Mark
+Main_FLOW_PowerOnToScale:
+	CLRF      MainFlowValue
+	BSF       MainFlowValue,B_MainFlow_Scale
+;---
+	CALL      F_Factory_Chk_Mark
+	MOVLW     0FFH
+	XORWF     REG0,F
+	BTFSS     STATUS,Z
+	GOTO      Main_FLOW_PowerOn_End
+	MOVLW     0FFH
+	XORWF     REG1,F
+	BTFSS     STATUS,Z
+    GOTO      Main_FLOW_PowerOn_End
+Main_FLOW_PowerOnToFactory:
 	CLRF      MainFlowValue
     BSF       MainFlowValue,B_MainFlow_Factory
     CLRF      FactoryFlowValue
-;	CLRF      MainFlowValue
-;	BSF       MainFlowValue,B_MainFlow_Scale
 Main_FLOW_PowerOn_End:
     GOTO      Main_FLOW_END
 
@@ -122,6 +136,7 @@ Main_WifiCfg_END:
     INCLUDE   WIFI_SmartCfg.ASM
     ;INCLUDE   IIC_Funs.ASM
     ;INCLUDE   CSM37F58_lib.ASM
+    INCLUDE   Factory_Funs.ASM
 ;============================================
 	END
 ;============================================

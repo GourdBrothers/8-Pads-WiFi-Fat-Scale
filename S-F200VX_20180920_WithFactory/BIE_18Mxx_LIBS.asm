@@ -26,7 +26,8 @@ RETURN
 
 ;----------------------------------------------
 ;--- BIE read one BYTE
-;--- Input: BIE_ADDR
+;--- Input : BIE_ADDR
+;--- Output: BIE_BYTE
 F_18MXX_BIE_RD_BYTE:
 	MOVFF    EADRL,BIE_ADDR
 	MOVFL    EADRH,020H
@@ -37,7 +38,7 @@ RETURN
 
 ;==========================================
 ;--- Write bulid in Eeprom functions
-;--- OTA BLE MARK WRITE
+
 F_18MXX_BLE_CAL_WR:
 	BCF      BSR     ,IRP0
 	MOVFL    FSR0    ,CalDot1H

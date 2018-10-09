@@ -15,6 +15,8 @@ Factory_Disp_FlowChk:
 	GOTO     Factory_Main_Disp_ADC
 	BTFSC    FactoryFlowValue,B_FactoryFlowValue_CMDCC
 	GOTO     Factory_Main_Disp_CMDCC
+	BTFSC    FactoryFlowValue,B_FactoryFlowValue_ChkLo
+	GOTO     Factory_Main_Disp_ChkLo
 	BTFSC    FactoryFlowValue,B_FactoryFlowValue_PASS
 	GOTO     Factory_Main_Disp_PASS
 	BTFSC    FactoryFlowValue,B_FactoryFlowValue_ERR
@@ -42,10 +44,19 @@ Factory_Main_Disp_ADC_END:
 Factory_Main_Disp_CMDCC:
 	CLRF     TempRam11
     CLRF     TempRam12
-    MOVFF    TempRam13,T_Auto_Off
+    MOVFF    TempRam13,Fac_TimeOff
     CALL     F_HexToBcd
 	CALL     Display_NumADC
 Factory_Main_Disp_CMDCC_END:
+	GOTO     Factory_Main_Disp_Load
+	
+Factory_Main_Disp_ChkLo:
+	CLRF     TempRam11
+    MOVFF    TempRam12,BAT_VAL_H
+    MOVFF    TempRam13,BAT_VAL_L
+    CALL     F_HexToBcd
+	CALL     Display_NumADC
+Factory_Main_Disp_ChkLo_END:
 	GOTO     Factory_Main_Disp_Load
 	
 Factory_Main_Disp_PASS:

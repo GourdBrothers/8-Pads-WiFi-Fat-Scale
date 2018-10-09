@@ -41,3 +41,4 @@ BAT_FUNS.ASM
 UART_LIB.ASM                         
 PROTOCOL_LIB_V10.ASM                 
 WIFI_SMARTCFG.ASM                    
+FACTORY_FUNS.ASM                     

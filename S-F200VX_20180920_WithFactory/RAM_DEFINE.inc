@@ -254,8 +254,9 @@
       B_FactoryFlowValue_WAIT   EQU  1
       B_FactoryFlowValue_ADC    EQU  2
       B_FactoryFlowValue_CMDCC  EQU  3
-      B_FactoryFlowValue_PASS   EQU  4
-      B_FactoryFlowValue_ERR    EQU  5
+      B_FactoryFlowValue_ChkLo  EQU  4
+      B_FactoryFlowValue_PASS   EQU  5
+      B_FactoryFlowValue_ERR    EQU  6
       
     
 ;===================================================
@@ -451,6 +452,7 @@ UART_ACK       EQU   UART_TX32 + 1
       B_Fac_ErrCode_UART  EQU    1
       B_Fac_ErrCode_RES   EQU    2
       B_Fac_ErrCode_WIFI  EQU    3
+      B_Fac_ErrCode_LO    EQU    4
     Fac_RX_RecvFlag       EQU    Fac_ErrCode     + 1
       B_Fac_RX_RecvFlag_CmdCC_OK  EQU   0
       B_Fac_RX_RecvFlag_WiFi_OK   EQU   1

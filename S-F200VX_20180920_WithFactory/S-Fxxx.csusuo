@@ -2,22 +2,18 @@
 <UserOptions>
 	<OpenState>
 		<OpenFiles>
-			Path=".\\Factory_Main.asm"
-			Path=".\\UART_LIB.asm"
-			Path=".\\Protocol_LIB_V10.asm"
-			Path=".\\Protocol_RX_Handle.asm"
 			Path=".\\RAM_DEFINE.inc"
-			Path=".\\Protocol_TX_Handle.asm"
 			Path=".\\Factory_Display.asm"
-			Path=".\\Math.ASM"
-			Path=".\\LED_DISP_LIB.ASM"
-			Path=".\\S-Fxxx.asm"
-			State="11,384,384"
+			Path=".\\ISR_Handle.asm"
+			Path=".\\Scale_Main.ASM"
+			Path=".\\BAT_FUNS.asm"
+			Path=".\\Factory_Main.asm"
+			State="14,921,921"
 		</OpenFiles>
 		<OpenFolders>
 			<{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 				Expanded="TRUE"
-				Name="CSM37F58"
+				Name="Factory"
 			</{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 		</OpenFolders>
 	</OpenState>
@@ -48,10 +44,6 @@
 		ActiveRegGroup="SFR"
 	</UI_dockbar_registers>
 	<Breakpoints>
-		<Breakpoint>
-			ClassID="{4993C0DF-0FCE-4D4A-9C53-8119E029EA7B}"
-			Data="A2FC38263136485742503130303B303B313B313337333B303B313B303B303B303B2E5C466163746F72795F4D61696E2E61736D3B323700"
-		</Breakpoint>
 	</Breakpoints>
 	<WatchVariables>
 		<dockbar_watch1>
@@ -90,6 +82,12 @@
 			</Variable>
 			<Variable>
 				Name="Display4"
+			</Variable>
+			<Variable>
+				Name="REG0"
+			</Variable>
+			<Variable>
+				Name="REG1"
 			</Variable>
 		</dockbar_watch1>
 	</WatchVariables>

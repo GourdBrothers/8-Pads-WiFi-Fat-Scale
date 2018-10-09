@@ -2,12 +2,15 @@
 ;===== Factory_Main.asm
 ;=====  CMD10: C5 1E 10 00 00 00 00 18 01 08 12 00 02 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CF
 ;=====  CMDCC: C5 01 CC 08
-;===== 1.Factory_Main_Init：初始化显示，并全显
-;===== 2.Factory_Main_WaitSeconds：全显示1S后开WIFI电源，半秒后初始化串口,ADC
-;===== 3.Factory_Main_SendCmdCC：间隔100MS发送CMDCC指令,等待WIFI响应
-;        这个时候显示ADC内码，(如果WIFI响应OK，内码显示5秒钟后转到下一步)
-;        (如果WIFI无响应，内码一直显示)
-;===== 4.Factory_Main_PASS: 显示FPAS,表明产测正常
+;===== 1.Factory_Main_Init：初始化相关设备
+;===== 2.Factory_Main_WaitSeconds：全显示(用于查看LED灯是否正常),半秒后初始化串口,持续2S
+;===== 3.Factory_Main_ADC: 显示 ADC 5秒钟,按压传感器来判断是否正常
+;===== 4.Factory_Main_SendCmdCC：间隔500MS发送CMDCC指令,等待WIFI响应
+;        这个时候LED从10开始以半秒速度倒数,如果CS1258，WIFIOK，RTC OK,进入低电压检测阶段;
+;        如果计时到0时，则会报对应的出错信息
+;===== 5.B_FactoryFlowValue_ChkLo: 低电压检测，测试人员按下低电压模拟开关
+;===== 6.Factory_Main_PASS: 显示FPAS,表明产测正常
+;===== 7.B_FactoryFlowValue_ERR: 显示Er-x,表明产测异常
 ;==============================================================================
 
 Factory_Main_Entry:
@@ -60,6 +63,8 @@ Factory_Main_Flow:
 	GOTO    Factory_Main_ADC
 	BTFSC   FactoryFlowValue,B_FactoryFlowValue_CMDCC
 	GOTO    Factory_Main_SendCmdCC
+	BTFSC   FactoryFlowValue,B_FactoryFlowValue_ChkLo
+	GOTO    Factory_Main_ChkLo
 	BTFSC   FactoryFlowValue,B_FactoryFlowValue_PASS
 	GOTO    Factory_Main_PASS
 	BTFSC   FactoryFlowValue,B_FactoryFlowValue_ERR
@@ -72,7 +77,7 @@ Factory_Main_Init:
 
    CALL     F_WiFi_PowerOn_UartIoFloat
    
-   CALL     F_LED_DISP_INIT 
+   CALL     F_LED_DISP_INIT
    CALL     ClrLEDBuffer
    CALL     LoadDspData
    
@@ -101,12 +106,14 @@ Factory_Main_Init:
    
    CALL     F_SysTimer0_OPEN
    
+   CALL     F_Bat_Chk_Init
+   
 ;--- NEXT FLOW 
    CLRF     FactoryFlowValue
    BSF      FactoryFlowValue,B_FactoryFlowValue_WAIT
    CLRF     Fac_TimeOff
    CALL     F_Clr_Timer05S
-;---
+;--- clrf err ram
    CLRF     Fac_RtcChk_Cnt
    CLRF     Fac_RcRef_Cnt
    CLRF     Fac_ErrCode
@@ -171,7 +178,7 @@ Factory_Main_SendCmdCC_0:
 	GOTO    Factory_Main_SendCmdCC_Timeout
 ;--- SEND CMD10,GET STATE
 Factory_Main_SendCmdCC_1:
-	BSF     UART_TX_EVENT,B_UART_TX_EVENT_unlock
+	BSF     UART_TX_EVENT,B_UART_TX_EVENT_unlock          ; CMD10
 	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_WiFi_OK
 	GOTO    Factory_Main_SendCmdCC_Timeout
 	BTFSS   Fac_RX_RecvFlag,B_Fac_RX_RecvFlag_CS1258_OK
@@ -179,7 +186,7 @@ Factory_Main_SendCmdCC_1:
 ;--- WIFI 模块通过
 	BCF     UART_TX_EVENT,B_UART_TX_EVENT_unlock
 	CLRF    FactoryFlowValue
-	BSF     FactoryFlowValue,B_FactoryFlowValue_PASS
+	BSF     FactoryFlowValue,B_FactoryFlowValue_ChkLo
 	GOTO    Factory_Main_SendCmdCC_END
 ;--- CHECK TIMEOUT
 Factory_Main_SendCmdCC_Timeout:
@@ -204,6 +211,20 @@ Factory_Main_SendCmdCC_Timeout:
 Factory_Main_SendCmdCC_END:
 	GOTO    Factory_Main_Flow_END
 
+;---- check Low battery circuit 
+Factory_Main_ChkLo:
+    BTFSS    BatFlag,B_BatFlag_CHK
+    GOTO     Factory_Main_ChkLo_END
+    BCF      BatFlag,B_BatFlag_CHK
+    CALL     F_Bat_Chk
+    BTFSS    BatFlag,B_BatFlag_Low
+    GOTO     Factory_Main_ChkLo_END
+;--
+    CLRF     FactoryFlowValue
+	BSF      FactoryFlowValue,B_FactoryFlowValue_PASS
+Factory_Main_ChkLo_END:
+	GOTO    Factory_Main_Flow_END
+	
 ;---- WIFI AND CS1258 ARE OK
 Factory_Main_PASS:
 Factory_Main_PASS_END:

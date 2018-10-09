@@ -41,10 +41,11 @@
 --- uart_lib.asm
 --- protocol_lib_v10.asm
 --- wifi_smartcfg.asm
+--- factory_funs.asm
 生成Hex文件.
 
 目标器件 :CSU18MB86
 CodeOption  : CodeOption0:0x0003;
-Checksum : 6079
+Checksum : 1AA8
 F:\Share_CSM\S-F200\8-Pads-WiFi-Fat-Scale\S-F200VX_20180920_WithFactory\//S-Fxxx.asm
-共用程序空间 ：3526×16 bits ( 43.04% )
+共用程序空间 ：3585×16 bits ( 43.76% )
