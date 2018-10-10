@@ -4,7 +4,7 @@
 ;=====  CMDCC: C5 01 CC 08
 ;===== 1.Factory_Main_Init：初始化相关设备
 ;===== 2.Factory_Main_WaitSeconds：全显示(用于查看LED灯是否正常),半秒后初始化串口,持续2S
-;===== 3.Factory_Main_ADC: 显示 ADC 5秒钟,按压传感器来判断是否正常
+;===== 3.Factory_Main_ADC: 显示 ADC 3秒钟,按压传感器来判断是否正常
 ;===== 4.Factory_Main_SendCmdCC：间隔500MS发送CMDCC指令,等待WIFI响应
 ;        这个时候LED从10开始以半秒速度倒数,如果CS1258，WIFIOK，RTC OK,进入低电压检测阶段;
 ;        如果计时到0时，则会报对应的出错信息
@@ -29,6 +29,8 @@ Factory_Main_Halt_END:
 Factory_Main_CheckRTC:
 	BTFSC   Fac_ErrCode,B_Fac_ErrCode_RTC
 	GOTO    Factory_Main_CheckRTC_END
+	BTFSC   FactoryFlowValue,B_FactoryFlowValue_ChkLo
+	GOTO    Factory_Main_CheckRTC_END	
 	BTFSS   SysFlag2,B_SysFlag2_TF_05B
 	GOTO    Factory_Main_CheckRTC_END
 	INCF    Fac_RcRef_Cnt,F
@@ -219,9 +221,11 @@ Factory_Main_ChkLo:
     CALL     F_Bat_Chk
     BTFSS    BatFlag,B_BatFlag_Low
     GOTO     Factory_Main_ChkLo_END
-;--
+;-- NEXT FLOW
     CLRF     FactoryFlowValue
 	BSF      FactoryFlowValue,B_FactoryFlowValue_PASS
+;-- Write Factory MARK
+	CALL     F_Factory_WR_Mark
 Factory_Main_ChkLo_END:
 	GOTO    Factory_Main_Flow_END
 	

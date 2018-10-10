@@ -41,7 +41,7 @@ F_Bat_Chk:
 	GOTO   F_Bat_Enough
 ;---
 	INCF   BAT_LO_CNT,F
-	MOVLW  50
+	MOVLW  10
 	SUBWF  BAT_LO_CNT,W
 	BTFSS  STATUS,C
 	GOTO   F_Bat_EN

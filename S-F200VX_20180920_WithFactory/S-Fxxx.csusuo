@@ -6,14 +6,14 @@
 			Path=".\\Factory_Display.asm"
 			Path=".\\ISR_Handle.asm"
 			Path=".\\Scale_Main.ASM"
-			Path=".\\BAT_FUNS.asm"
+			Path=".\\Factory_Funs.asm"
 			Path=".\\Factory_Main.asm"
-			State="14,921,921"
+			Path=".\\BAT_FUNS.asm"
+			State="23,623,623"
 		</OpenFiles>
 		<OpenFolders>
 			<{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 				Expanded="TRUE"
-				Name="Factory"
 			</{EA35AE21-9F1C-4048-9003-C580EE4153BD}>
 		</OpenFolders>
 	</OpenState>
